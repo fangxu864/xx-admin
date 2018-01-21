@@ -21,7 +21,11 @@
                 <el-input type="textarea" v-model="form.description" :autosize="{ minRows: 3, maxRows: 5}"></el-input>
             </el-form-item>
             <el-form-item label="商品图">
-                <el-button type="primary" v-on:click="crop" plain size="medium">添加</el-button>
+                <div class="mini-img-wrap">
+                    <el-button type="primary" v-on:click="crop" plain size="medium">添加</el-button>
+                    <span class="img-tips">第一张图为主图，上传1~5张商品图片，建议小于1M</span>
+                </div>
+                
                 <div class="mini-img-wrap">
                     <mini-img v-for=" (item,index) in imgSrcArr" 
                     :key="item" 
