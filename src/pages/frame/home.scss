@@ -1,0 +1,16 @@
+.wrapper{
+    margin: 0;
+    padding: 0;
+}
+
+.content{
+    position: absolute;
+    background-color: #f2f2f2;
+    top: 70px;
+    left: 200px;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    min-width: 800px;
+    overflow-y: auto;
+}

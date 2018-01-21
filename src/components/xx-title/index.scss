@@ -1,0 +1,19 @@
+.title-box {
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    font-weight: 400;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-bottom-color: #2b98db;
+    .title-text {
+        display: inline-block;
+        height: 36px;
+        color: #262d37;
+        padding: 0 20px;
+        border-right: 1px solid #e5e5e5;
+        color: #fff;
+        background-color: #2b98db;
+        font-weight: 700;
+    }
+}

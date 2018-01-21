@@ -1,0 +1,21 @@
+.img-box{
+    width: 150px;
+    height: 150px;
+    border-bottom: 1px solid #e5e5e5;
+    
+    img{
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.mini-box{
+    width: 150px;
+    display: inline-block;
+    border: 1px solid #e5e5e5;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    .bottom{
+        text-align: center;
+    }
+}
