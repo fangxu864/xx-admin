@@ -1,6 +1,6 @@
 <template>
     <div class="login-wrap white">
-        <div class="ms-title">康利来后台管理系统</div>
+        <div class="ms-title">海鲜后台管理系统</div>
         <div class="ms-login">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
                 <el-form-item prop="username">
@@ -10,7 +10,7 @@
                     <el-input type="password" placeholder="请输入密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                    <el-button :loading="showLoading" type="primary" @click="submitForm('ruleForm')">登录</el-button>
                 </div>
             </el-form>
         </div>

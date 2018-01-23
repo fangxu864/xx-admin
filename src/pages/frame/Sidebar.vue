@@ -36,29 +36,14 @@
                     },
                     {
                         icon: 'el-icon-sold-out',
-                        index: 'production',
+                        index: 'salepro',
                         title: '出售中产品'
                     },
                     {
                         icon: 'el-icon-sold-out',
-                        index: 'production',
+                        index: 'hubpro',
                         title: '仓库中产品'
                     }
-                    // {
-                    //     icon: 'el-icon-menu',
-                    //     index: '2',
-                    //     title: '表格',
-                    //     subs: [
-                    //         {
-                    //             index: 'basetable',
-                    //             title: '基础表格'
-                    //         },
-                    //         {
-                    //             index: 'vuetable',
-                    //             title: 'Vue表格组件'
-                    //         }
-                    //     ]
-                    // }
                 ]
             }
         },
