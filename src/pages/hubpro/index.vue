@@ -29,10 +29,17 @@
       show-overflow-tooltip>
     </el-table-column>
   </el-table>
-  <div style="margin-top: 20px">
+  <div class="btn-line">
     <el-button @click="toggleSelection([tableData3[1], tableData3[2]])">上架</el-button>
     <el-button @click="toggleSelection()">取消选择</el-button>
   </div>
+    </div>
+     <div class="pag-box">
+        <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="1000">
+        </el-pagination>
     </div>
     
 </div>
