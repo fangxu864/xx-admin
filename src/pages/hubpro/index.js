@@ -43,6 +43,9 @@ export default {
 
     created() {
         document.title = "订单查询";
+        if (localStorage.getItem("logState") !== "login") {
+            this.$router.push('/login');
+        }
     },
 
     methods: {

@@ -5,39 +5,9 @@ export default {
         return {
             showLoading: false,
             date: "",
-            tableData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄'
-            },{
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄'
-            },{
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄'
-            }]
+            btime: "",
+            etime:"",
+            tableData: []
 
         }
     },
@@ -49,60 +19,67 @@ export default {
 
     created() {
         document.title = "订单查询";
+        if (localStorage.getItem("logState") !== "login") {
+            this.$router.push('/login');
+        }
     },
 
     methods: {
 
         search() {
-            console.log(this.date)
             var _this = this;
-            if (!this.date) {
-                _this.$message({
-                    showClose: true,
-                    message: "请选择日期时间",
-                    type: 'warning'
-                });
-            } else {
-                PFT.Util.Ajax("/Backend/Index/orderList", {
-                    type: "POST",
-                    params: {
-                        btime: _this.date[0],
-                        etime: _this.date[1],
-                    },
-                    loading: function () {
-                        _this.showLoading = true;
-                    },
-                    complete: function () {
-                        _this.showLoading = false;
-                    },
-                    success: function (res) {
-                        if (res.code == 200) {
-                           
-                        } else {
-                            _this.$message({
-                                showClose: true,
-                                message: res.msg || "查询出错了",
-                                type: 'error'
-                            });
+            PFT.Util.Ajax("/Backend/Index/orderList", {
+                type: "POST",
+                params: {
+                    btime: _this.btime,
+                    etime: _this.etime,
+                },
+                loading: function () {
+                    _this.showLoading = true;
+                },
+                complete: function () {
+                    _this.showLoading = false;
+                },
+                success: function (res) {
+                    if (res.code == 200) {
+
+                        // 0=待确认、1=已确认、2=已发货，3=已取消
+                        var config = {
+                            "0": "待确认",
+                            "1": "已确认",
+                            "2": "已发货",
+                            "3": "已取消"
                         }
-                    },
-                    tiemout: function () {
+
+                        $.each(res.data, function (index, item) {
+                            item.time = new Date(Number(item.time + "000")).format("yyyy-MM-dd hh:mm:ss");
+                            item.status = config[item.status];
+                        })
+                        _this.tableData = res.data;
+                    } else {
                         _this.$message({
                             showClose: true,
-                            message: PFT.AJAX_TIMEOUT_TEXT,
-                            type: 'error'
-                        });
-                    },
-                    serverError: function () {
-                        
-                        _this.$message({
-                            showClose: true,
-                            message: PFT.AJAX_ERROR_TEXT,
+                            message: res.msg || "查询出错了",
                             type: 'error'
                         });
                     }
-                });
-            }
+                },
+                tiemout: function () {
+                    _this.$message({
+                        showClose: true,
+                        message: PFT.AJAX_TIMEOUT_TEXT,
+                        type: 'error'
+                    });
+                },
+                serverError: function () {
+                    
+                    _this.$message({
+                        showClose: true,
+                        message: PFT.AJAX_ERROR_TEXT,
+                        type: 'error'
+                    });
+                }
+            });
         }
 
     }

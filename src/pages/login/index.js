@@ -20,8 +20,9 @@ export default {
     created() {
       
         document.title = "登陆页";
-        if (localStorage.getItem("isLogin")) {
-            history.go(-1);
+        if (localStorage.getItem("logState") == "login") {
+            console.log("已经登陆过了");
+            this.$router.push('/orderquery');
         }
         
     },
@@ -31,10 +32,12 @@ export default {
             const _this = this;
             _this.$refs[formName].validate((valid) => {
                 if (valid) {
-
                     PFT.Util.Ajax("/Backend/Index/login", {
                         type: "POST",
-                        params: {},
+                        params: {
+                            account: _this.ruleForm.username,
+                            password: hex_md5(hex_md5(_this.ruleForm.password))
+                        },
                         loading: function () {
                             _this.showLoading = true;
                         },
@@ -44,7 +47,7 @@ export default {
                         success: function (res) {
                             if (res.code == 200) {
                                 localStorage.setItem('ms_username',_this.ruleForm.username);
-                                localStorage.setItem('isLogin',true);
+                                localStorage.setItem('logState',"login");
                                 _this.$router.push('/orderquery');
                             } else {
                                 _this.$message({

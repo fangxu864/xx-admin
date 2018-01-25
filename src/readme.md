@@ -1,3 +1,7 @@
+http://www.fzseafood.cn/Public/static/
+
+
+
 登录：
 地址：http://www.fzseafood.cn/Backend/Index/login
 参数：
