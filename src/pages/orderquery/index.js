@@ -6,9 +6,11 @@ export default {
             showLoading: false,
             date: "",
             btime: "",
-            etime:"",
-            tableData: []
-
+            etime: "",
+            tableData: [],
+            pageSize: 10,
+            page: 1, //当前页数
+            total: 1 //总页数
         }
     },
 
@@ -19,6 +21,9 @@ export default {
 
     created() {
         document.title = "订单查询";
+        let nowDate = new Date().format("yyyy-MM-dd");
+        this.btime = nowDate;
+        this.etime = nowDate;
         if (localStorage.getItem("logState") !== "login") {
             this.$router.push('/login');
         }
@@ -33,6 +38,8 @@ export default {
                 params: {
                     btime: _this.btime,
                     etime: _this.etime,
+                    page: _this.page,
+                    pageSize: _this.pageSize
                 },
                 loading: function () {
                     _this.showLoading = true;
@@ -41,8 +48,7 @@ export default {
                     _this.showLoading = false;
                 },
                 success: function (res) {
-                    if (res.code == 200) {
-
+                    if (res && res.code == 200) {
                         // 0=待确认、1=已确认、2=已发货，3=已取消
                         var config = {
                             "0": "待确认",
@@ -50,16 +56,16 @@ export default {
                             "2": "已发货",
                             "3": "已取消"
                         }
-
-                        $.each(res.data, function (index, item) {
+                        $.each(res.data.list, function (index, item) {
                             item.time = new Date(Number(item.time + "000")).format("yyyy-MM-dd hh:mm:ss");
                             item.status = config[item.status];
                         })
-                        _this.tableData = res.data;
+                        _this.tableData = res.data.list;
+                        _this.total = Number(res.data.cnt);
                     } else {
                         _this.$message({
                             showClose: true,
-                            message: res.msg || "查询出错了",
+                            message: res && res.msg ? res.msg : "查询出错了",
                             type: 'error'
                         });
                     }
@@ -72,7 +78,7 @@ export default {
                     });
                 },
                 serverError: function () {
-                    
+
                     _this.$message({
                         showClose: true,
                         message: PFT.AJAX_ERROR_TEXT,
@@ -80,7 +86,31 @@ export default {
                     });
                 }
             });
-        }
+        },
+
+        onPageChange: function (curPage) {
+            this.page = curPage;
+            this.search();
+        },
+
+        //导出excel
+        outExcel: function () {
+            var _this = this;
+            var param = {
+                btime: _this.btime,
+                etime: _this.etime,
+                page: _this.page,
+                pageSize: _this.pageSize
+            }
+            let url = "/Backend/Index/orderList?excel=1&" + $.param(param);
+            this.Excel(url);
+        },
+
+        Excel: function (downloadUrl) {
+            var iframeName = "iframe" + new Date().getTime();
+            $("body").append(' <iframe style="display: none" name="' + iframeName + '"></iframe>');
+            window.open(downloadUrl, iframeName);
+        },
 
     }
 }

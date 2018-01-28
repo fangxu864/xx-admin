@@ -2,32 +2,32 @@ var Message = require("pft-ui-component/Message");
 
 var upBase64 = {
     /**
-	 * @description 上传图片到七牛云
-	 * @param {any} ImageBase64 
-	 * @param {any} callBack 
-	 */
+     * @description 上传图片到七牛云
+     * @param {any} ImageBase64 
+     * @param {any} callBack 
+     */
     upImageToQiniu: function (ImageBase64, pathAndFileName, callBack) {
         var _this = this;
 
         //获取当前用户的账号
         var base = new this.Base64();
-        var newFileName = pathAndFileName || new Date().getTime() + (Math.random()*1000000).toFixed(0) + ".png";
-        var upLoadFileName = pathAndFileName || "pftcropimages/" + newFileName ;
+        var newFileName = pathAndFileName || new Date().getTime() + (Math.random() * 1000000).toFixed(0) + ".png";
+        var upLoadFileName = pathAndFileName || "pftcropimages/" + newFileName;
         upLoadFileName = base.encode(upLoadFileName);
 
         //先到我们的服务器获取token,然后直传图片到七牛
         this.getQinuiToken(function (token) {
             var pic = ImageBase64;
-            var url = "http://up.qiniu.com/putb64/-1/key/" + upLoadFileName; //非华东空间需要根据注意事项 1 修改上传域名
+            var url = "http://up-z2.qiniu.com/putb64/-1/key/" + upLoadFileName; //非华东空间需要根据注意事项 1 修改上传域名
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if (xhr.status == 200) {
                         var result = JSON.parse(xhr.responseText);
-                        callBack(200,result.key);
+                        callBack(200, result.key);
                     } else {
                         var errorJson = JSON.parse(xhr.responseText);
-                        callBack(400,errorJson.error);
+                        callBack(400, errorJson.error);
                     }
                 }
             }
@@ -39,12 +39,12 @@ var upBase64 = {
 
     },
 
-	/** 
-	 *  Base64 encode / decode 
-	 *  @author haitao.tu 
-	 *  @date   2010-04-26 
-	 *  @email  tuhaitao@foxmail.com
-	 */
+    /** 
+     *  Base64 encode / decode 
+     *  @author haitao.tu 
+     *  @date   2010-04-26 
+     *  @email  tuhaitao@foxmail.com
+     */
     Base64: function () {
 
         // private property  
@@ -149,12 +149,12 @@ var upBase64 = {
         }
     },
 
-	/**
-	 * @description 获取七牛的token
-	 */
+    /**
+     * @description 获取七牛的token
+     */
     getQinuiToken: function (callBack) {
 
-        PFT.Util.Ajax("/r/Resource_ImageUpload/getUploadToken", {
+        PFT.Util.Ajax("/Backend/ImageUpload/getUploadToken", {
             type: "GET",
             params: {},
             loading: function () {
@@ -166,8 +166,12 @@ var upBase64 = {
             success: function (res) {
                 callBack(res.uptoken);
             },
-            tiemout: function () { Message.error(PFT.AJAX_TIMEOUT_TEXT) },
-            serverError: function () { Message.error(PFT.AJAX_ERROR_TEXT) }
+            tiemout: function () {
+                Message.error(PFT.AJAX_TIMEOUT_TEXT)
+            },
+            serverError: function () {
+                Message.error(PFT.AJAX_ERROR_TEXT)
+            }
         });
 
     }
@@ -203,14 +207,10 @@ function upImgBase64(opt) {
     newOpt.loading();
 
     upBase64.upImageToQiniu(newOpt["data"], newOpt["pathAndFileName"], function (code, text) {
-        
+
         if (code == 200) {
-            var host;
-            if (/12301\.cc/.test(location.host)) {
-                host = "images.pft12301.cc";
-            } else {
-                host = "ol3ooubvm.bkt.clouddn.com";
-            }
+            var host = "p2xsazweu.bkt.clouddn.com";
+
             var imgAddress = "//" + host + "/" + text;
             newOpt["success"](imgAddress);
         } else {

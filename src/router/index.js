@@ -4,6 +4,7 @@ import frame from "../pages/frame/Home.vue";
 import login from '../pages/login/index.vue';
 import orderquery from '../pages/orderquery/index.vue';
 import publish from '../pages/publish/index.vue';
+import proedit from '../pages/proedit/index.vue';
 import salepro from '../pages/salepro/index.vue';
 import hubpro from '../pages/hubpro/index.vue';
 Vue.use(Router);
@@ -23,6 +24,10 @@ export default new Router({
                 {
                     path: '/publish',
                     component: publish
+                },
+                {
+                    path: '/proedit/:id',
+                    component: proedit
                 },
                 {
                     path: '/salepro',

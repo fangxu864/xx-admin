@@ -4,11 +4,13 @@ import miniImg from '../../components/mini-img/index.vue';
 
 export default {
 
+    editProId: "",
+
     data: function () {
         return {
-            navTitle: "产品发布",
+            navTitle: "产品编辑",
             imgSrcArr: [],
-            btnText: "确认发布",
+            btnText: "确认保存",
             form: {
                 name: '',
                 region: '',
@@ -70,7 +72,16 @@ export default {
     },
 
     created() {
-        document.title = "产品发布";
+        document.title = "产品编辑";
+
+        console.log(this.$route.params)
+
+        //产品编辑
+        if (this.$route.params.id != undefined) {
+            this.editProId = this.$route.params.id;
+            this.getProInfoWhenEdit();
+        };
+
         if (localStorage.getItem("logState") !== "login") {
             this.$router.push('/login');
         }
@@ -146,6 +157,10 @@ export default {
                     type: _this.form.type
                 }
 
+                if (_this.editProId) {
+                    params["id"] = _this.editProId;
+                }
+
                 PFT.Util.Ajax("/Backend/Product/setProduct", {
                     type: "POST",
                     params: params,
@@ -159,9 +174,13 @@ export default {
                         if (res.code == 200) {
                             _this.$message({
                                 showClose: true,
-                                message: res.msg || "发布成功",
+                                message: res.msg || "编辑成功",
                                 type: 'success'
                             });
+
+                            if (_this.editProId) {
+                                _this.$router.push('/salepro');
+                            }
 
                             //重置
                             _this.$refs["publisForm"].resetFields();
@@ -194,6 +213,56 @@ export default {
             })
 
         },
+
+
+        /**
+         * 如果是编辑产品的时候要获取信息
+         * 
+         */
+        getProInfoWhenEdit() {
+            var _this = this;
+            PFT.Util.Ajax("/Backend/Product/getProduct", {
+                type: "POST",
+                params: {
+                    id: _this.editProId
+                },
+                loading: function () {
+                    // _this.showLoading = true;
+                },
+                complete: function () {
+                    // _this.showLoading = false;
+                },
+                success: function (res) {
+                    console.log(res);
+                    if (res.code == 200) {
+                        res.data.list[0].price = Number(res.data.list[0].price);
+                        _this.form = res.data.list[0];
+                        _this.imgSrcArr = [res.data.list[0]["images"]]
+                    } else {
+                        _this.$message({
+                            showClose: true,
+                            message: res.msg || "查询出错了",
+                            type: 'error'
+                        });
+                    }
+                },
+                tiemout: function () {
+                    _this.$message({
+                        showClose: true,
+                        message: PFT.AJAX_TIMEOUT_TEXT,
+                        type: 'error'
+                    });
+                },
+                serverError: function () {
+
+                    _this.$message({
+                        showClose: true,
+                        message: PFT.AJAX_ERROR_TEXT,
+                        type: 'error'
+                    });
+                }
+            });
+        }
 
     }
 }

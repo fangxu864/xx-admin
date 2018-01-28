@@ -1,0 +1,21 @@
+
+$mainColor : #003c6b;
+
+.publish-box{
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    .el-form{
+        width: 460px;
+    }
+}
+.mini-img-wrap{
+    padding-top: 10px;
+    position: relative;
+    width: 660px;
+    // display: inline-block;
+}
+.img-tips{
+    color: #909399;
+    margin-left: 10px
+}

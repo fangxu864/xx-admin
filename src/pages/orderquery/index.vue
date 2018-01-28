@@ -9,6 +9,7 @@
             <el-date-picker v-model="etime" type="date" value-format="yyyy-MM-dd" placeholder="选择日期">
             </el-date-picker>
             <el-button type="primary" @click="search">查询</el-button>
+            <el-button type="primary" @click="outExcel" plain>导出Excel</el-button>
         </div>
         <div class="table-box">
             <el-table v-loading="showLoading" element-loading-text="拼命加载中" :data="tableData" style="width: 100%">
@@ -34,8 +35,8 @@
                 </el-table-column>
             </el-table>
         </div>
-        <div class="pag-box">
-            <el-pagination background layout="prev, pager, next" :total="1000">
+        <div class="pag-box" v-if="total > 1">
+            <el-pagination background  layout="prev, pager, next" @current-change="onPageChange" :total="total" :page-size="pageSize" :current-page="page"	>
             </el-pagination>
         </div>
     </div>

@@ -26,22 +26,22 @@
                 items: [
                     {
                         icon: 'el-icon-search',
-                        index: 'orderquery',
+                        index: '/orderquery',
                         title: '订单查询'
                     },
                     {
                         icon: 'el-icon-upload2',
-                        index: 'publish',
+                        index: '/publish',
                         title: '产品发布'
                     },
                     {
                         icon: 'el-icon-sold-out',
-                        index: 'salepro',
+                        index: '/salepro',
                         title: '出售中产品'
                     },
                     {
                         icon: 'el-icon-sold-out',
-                        index: 'hubpro',
+                        index: '/hubpro',
                         title: '仓库中产品'
                     }
                 ]
