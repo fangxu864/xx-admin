@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrap white">
-    <xx-title title="出售中产品"></xx-title>
+    <xx-title title="仓库中产品"></xx-title>
 
     <div class="content-box">
       <el-table v-loading="showLoading" ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
@@ -17,10 +17,11 @@
         </el-table-column>
         <el-table-column prop="description" label="描述" width="200px">
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="300px">
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button size="mini" @click="shangjia(scope.row.id)">上架</el-button>
+            <el-button size="mini" @click="deletePro(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

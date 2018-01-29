@@ -20,7 +20,7 @@ export default {
     },
 
     created() {
-        document.title = "订单查询";
+        document.title = "出售中产品";
         if (localStorage.getItem("logState") !== "login") {
             this.$router.push('/login');
         }
@@ -46,9 +46,20 @@ export default {
                 },
                 success: function (res) {
                     if (res.code == 200) {
+                        var config = {
+                            1: "生鲜类",
+                            2: "加工食品类",
+                            3: "鱼干类",
+                        }
+
+                        $.each(res.data.list, function (index, item) {
+                            item.type = config[res.data.list[index].type];
+                        })
+
                         _this.tableData = res.data.list;
                         _this.total = Number(res.data.cnt);
                     } else {
+                        _this.tableData = [];
                         _this.$message({
                             showClose: true,
                             message: res.msg || "查询出错了",

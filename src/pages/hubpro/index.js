@@ -10,7 +10,7 @@ export default {
             total: 1,
             page: 1,
             pageSize: 10,
-            status: 0 
+            status: 0
         }
 
     },
@@ -20,7 +20,7 @@ export default {
     },
 
     created() {
-        document.title = "订单查询";
+        document.title = "仓库中产品";
         if (localStorage.getItem("logState") !== "login") {
             this.$router.push('/login');
         }
@@ -46,9 +46,21 @@ export default {
                 },
                 success: function (res) {
                     if (res.code == 200) {
+
+                        var config = {
+                            1: "生鲜类",
+                            2: "加工食品类",
+                            3: "鱼干类",
+                        }
+
+                        $.each(res.data.list, function (index, item) {
+                            item.type = config[res.data.list[index].type];
+                        })
+
                         _this.tableData = res.data.list;
                         _this.total = Number(res.data.cnt);
                     } else {
+                        _this.tableData = [];
                         _this.$message({
                             showClose: true,
                             message: res.msg || "查询出错了",
@@ -95,6 +107,106 @@ export default {
         },
 
 
+        shangjia(id) {
+            var _this = this;
+            this.$confirm("是否上架该产品？", "提示", {
+                callback: function (result) {
+                    if (result == "confirm") {
+                        PFT.Util.Ajax("/Backend/Product/setProductStatus", {
+                            type: "POST",
+                            params: {
+                                status: 1,
+                                id: id
+                            },
+                            loading: function () {
+                                // _this.showLoading = true;
+                            },
+                            complete: function () {
+                                // _this.showLoading = false;
+                            },
+                            success: function (res) {
+                                if (res.code == 200) {
+                                    _this.getData();
+                                } else {
+                                    _this.$message({
+                                        showClose: true,
+                                        message: res.msg || "操作成功",
+                                        type: 'error'
+                                    });
+                                }
+                            },
+                            tiemout: function () {
+                                _this.$message({
+                                    showClose: true,
+                                    message: PFT.AJAX_TIMEOUT_TEXT,
+                                    type: 'error'
+                                });
+                            },
+                            serverError: function () {
+
+                                _this.$message({
+                                    showClose: true,
+                                    message: PFT.AJAX_ERROR_TEXT,
+                                    type: 'error'
+                                });
+                            }
+                        });
+                    }
+                }
+            })
+
+        },
+
+        deletePro(id) {
+            var _this = this;
+            this.$confirm("删除后不可恢复，是否删除该产品？", "提示", {
+                callback: function (result) {
+                    if (result == "confirm") {
+                        PFT.Util.Ajax("/Backend/Product/setProductStatus", {
+                            type: "POST",
+                            params: {
+                                status: 2,
+                                id: id
+                            },
+                            loading: function () {
+                                // _this.showLoading = true;
+                            },
+                            complete: function () {
+                                // _this.showLoading = false;
+                            },
+                            success: function (res) {
+                                if (res.code == 200) {
+                                    _this.getData();
+                                } else {
+                                    _this.$message({
+                                        showClose: true,
+                                        message: res.msg || "操作成功",
+                                        type: 'error'
+                                    });
+                                }
+                            },
+                            tiemout: function () {
+                                _this.$message({
+                                    showClose: true,
+                                    message: PFT.AJAX_TIMEOUT_TEXT,
+                                    type: 'error'
+                                });
+                            },
+                            serverError: function () {
+
+                                _this.$message({
+                                    showClose: true,
+                                    message: PFT.AJAX_ERROR_TEXT,
+                                    type: 'error'
+                                });
+                            }
+                        });
+                    }
+                }
+            })
+        },
+
+
         toggleSelection(rows) {
             if (rows) {
                 rows.forEach(row => {
@@ -109,6 +221,6 @@ export default {
         },
 
 
-       
+
     }
 }
