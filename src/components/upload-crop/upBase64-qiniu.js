@@ -211,7 +211,7 @@ function upImgBase64(opt) {
         if (code == 200) {
             var host = "p2xsazweu.bkt.clouddn.com";
 
-            var imgAddress = "//" + host + "/" + text;
+            var imgAddress = "http://" + host + "/" + text;
             newOpt["success"](imgAddress);
         } else {
             newOpt["error"](text);
