@@ -15,28 +15,45 @@
             <el-table v-loading="showLoading" element-loading-text="拼命加载中" :data="tableData" style="width: 100%">
                 <!-- <el-table-column prop="id" label="ID" width="180">
                 </el-table-column> -->
-                <el-table-column prop="order" label="订单号" width="180">
+                <el-table-column prop="order" label="订单号" width="130">
                 </el-table-column>
-                <el-table-column prop="time" label="时间">
+                <el-table-column prop="time" label="时间" width="180">
                 </el-table-column>
-                <el-table-column prop="describe" label="描述">
+                <el-table-column prop="num" label="订单信息(物品/数量kg)">
+                    <template slot-scope="scope">
+                        <div class="line" v-for="good in scope.row.goods">
+                            <p>{{good.name}} <span class="c-warn">{{good.num}}kg</span></p>
+                        </div>
+                    </template>
                 </el-table-column>
-                <el-table-column prop="num" label="数量">
+                <el-table-column prop="status" label="订单状态" width="100">
                 </el-table-column>
-                <el-table-column prop="status" label="订单状态">
+                <el-table-column prop="money" label="总价钱(元)" width="100">
                 </el-table-column>
-                <el-table-column prop="name" label="收货人姓名" width="180">
+
+                <el-table-column label="收货信息">
+                    <template slot-scope="scope">
+                        <p>收货人：{{scope.row.name}}</p>
+                        <p>手机：{{scope.row.mobile}}</p>
+                        <p>地址：{{scope.row.address}}</p>
+                    </template>
                 </el-table-column>
-                <el-table-column prop="mobile" label="手机">
+                <el-table-column prop="uid" label="会员ID" width="70">
                 </el-table-column>
-                <el-table-column prop="address" label="地址">
-                </el-table-column>
-                <el-table-column prop="uid" label="会员ID">
+                <el-table-column prop="describe" label="备注" width="160">
+                    <template slot-scope="scope">
+                        <el-popover trigger="hover" placement="top">
+                            <p style="width:200px;">{{scope.row.describe}}</p>
+                            <div slot="reference" class="name-wrapper">
+                                <div class="ellipsis--l3">{{scope.row.describe}}</div>
+                            </div>
+                        </el-popover>
+                    </template>
                 </el-table-column>
             </el-table>
         </div>
         <div class="pag-box" v-if="total > 1">
-            <el-pagination background  layout="prev, pager, next" @current-change="onPageChange" :total="total" :page-size="pageSize" :current-page="page"	>
+            <el-pagination background layout="prev, pager, next" @current-change="onPageChange" :total="total" :page-size="pageSize" :current-page="page">
             </el-pagination>
         </div>
     </div>

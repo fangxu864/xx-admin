@@ -1,18 +1,48 @@
-.filter-box{
+.filter-box {
     background-color: #ffffff;
     padding: 20px;
     border: 1px solid #e5e5e5;
 }
 
-.table-box{
+.table-box {
     border: 1px solid #e5e5e5;
     margin-top: 10px;
 }
 
-.pag-box{
+.pag-box {
     background-color: #ffffff;
     border: 1px solid #e5e5e5;
     padding: 20px;
     margin-top: 10px;
     text-align: right
+}
+
+.ellipsis--l3 {
+    max-height: 60px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical
+}
+
+.c-primary {
+    color: #303133;
+}
+
+.c-plain {
+    color: #606266;
+}
+
+.c-secondary {
+    color: #909399;
+}
+
+.c-placeholder {
+    color: #C0C4CC;
+}
+
+.c-warn{
+    color: #E6A23C
 }
