@@ -34,7 +34,7 @@
     .crop-choose {
         height: 200px;
         text-align: center;
-        &__btn {
+        &__btn , &__btn--origin {
             margin-top: 75px;
             padding: 10px 30px;
             display: inline-block;
@@ -48,7 +48,13 @@
                 box-shadow: 0 0 0 2px rgba(16, 142, 233, .2);
             }
         }
+        &__btn--origin {
+            margin-left: 10px;
+        }
         &__fileInp{
+            display: none;
+        }
+        &__fileInp--origin{
             display: none;
         }
     }

@@ -1,9 +1,14 @@
 <div class="crop-choose">
     <span class="crop-choose__btn">
         <i class="icon-pc-list icon-haibaotuiguang"></i>
-        <span class="text">选择图片</span>
+        <span class="text">裁剪上传</span>
+    </span>
+    <span class="crop-choose__btn--origin">
+        <i class="icon-pc-list icon-haibaotuiguang"></i>
+        <span class="text">原图上传</span>
     </span>
     <input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" class="crop-choose__fileInp">
+    <input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" class="crop-choose__fileInp--origin">
 
 </div>
 

@@ -101,6 +101,49 @@ var cropImgUpload = {
             });
 
         });
+        //点击原图上传按钮
+        CON.on("click", ".crop-choose__btn--origin", function () {
+            var curBtn = $(this);
+            if (curBtn.hasClass("disabled")) return false;
+            CON.find(".crop-choose__fileInp--origin").click();
+        });
+
+        //原图上传fileInp的change事件
+        CON.on("change", ".crop-choose__fileInp--origin", function (e) {
+
+            var chooseBtn = CON.find(".crop-choose__btn--origin");
+            readImgAsDataUrl({
+                file: e.currentTarget.files[0],
+                loading: function () {
+                    chooseBtn.find(".text").text("读取中..")
+                },
+                success: function (dataURL) {
+                    var imgBase64 = dataURL.match(/(?:base64\,)(.+)/)[1];
+
+                    upBase64ImgTo7Niu({
+                        data: imgBase64,
+                        pathAndFileName: _this._config.pathAndFileName,
+                        loading: function () {
+                            chooseBtn.text("上传中..").addClass("disabled");
+                        },
+                        success: function (imgAddress) {
+                            var arr = [];
+                            arr.push(imgAddress);
+                            _this._config.success(arr);
+                            _this.dialog.close();
+                        },
+                        complete: function () {
+                            chooseBtn.text("原图上传").removeClass("disabled");
+                        }
+                    })
+                },
+                complete: function () {
+                    chooseBtn.find(".text").text("原图上传");
+                    chooseBtn.removeClass("disabled");
+                }
+            });
+
+        });
 
         //点击裁剪并上传按钮
         CON.on("click", ".crop__savebtn", function (e) {

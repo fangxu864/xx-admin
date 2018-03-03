@@ -19,7 +19,10 @@ export default {
                 delivery: false,
                 type: [],
                 resource: '',
-                desc: ''
+                desc: '',
+                price: "", //价格
+                sec_price: "", //最高价格
+                price_type: "" //价格单位
             },
             rules: {
                 name: [{
@@ -36,7 +39,7 @@ export default {
                 ],
                 price: [{
                         required: true,
-                        message: '请输入价格',
+                        message: '请输入最低价格',
                         trigger: 'blur'
                     },
                     {
@@ -44,6 +47,21 @@ export default {
                         message: '价格必须为数字值'
                     }
                 ],
+                sec_price: [{
+                        required: true,
+                        message: '请输入最高价格',
+                        trigger: 'blur'
+                    },
+                    {
+                        type: 'number',
+                        message: '价格必须为数字值'
+                    }
+                ],
+                price_type: [{
+                    required: true,
+                    message: '请输入价格单位',
+                    trigger: 'blur'
+                }],
                 type: [{
                     required: true,
                     message: '请选择产品类型',
@@ -152,6 +170,8 @@ export default {
                 var params = {
                     name: _this.form.name,
                     price: _this.form.price,
+                    sec_price: _this.form.sec_price,
+                    price_type: _this.form.price_type,
                     description: _this.form.description,
                     images: _this.imgSrcArr[0],
                     type: _this.form.type

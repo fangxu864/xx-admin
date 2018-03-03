@@ -22,7 +22,9 @@
                 <el-table-column prop="num" label="订单信息(物品/数量kg)">
                     <template slot-scope="scope">
                         <div class="line" v-for="good in scope.row.goods">
-                            <p>{{good.name}} <span class="c-warn">{{good.num}}kg</span></p>
+                            <p>{{good.name}}
+                                <span class="c-warn">{{good.num}}kg</span>
+                            </p>
                         </div>
                     </template>
                 </el-table-column>
@@ -49,6 +51,23 @@
                             </div>
                         </el-popover>
                     </template>
+                </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-dropdown trigger="click" @command="changeStatus">
+                            <span class="el-dropdown-link">
+                                修改状态
+                                <i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item v-bind:command="'0_' + scope.row.order">待确认</el-dropdown-item>
+                                <el-dropdown-item v-bind:command="'1_' + scope.row.order">已确认</el-dropdown-item>
+                                <el-dropdown-item v-bind:command="'2_' + scope.row.order">已发货</el-dropdown-item>
+                                <el-dropdown-item v-bind:command="'3_' + scope.row.order">已取消</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </template>
+
                 </el-table-column>
             </el-table>
         </div>
