@@ -19,11 +19,11 @@
                 </el-table-column>
                 <el-table-column prop="time" label="时间" width="180">
                 </el-table-column>
-                <el-table-column prop="num" label="订单信息(物品/数量kg)">
+                <el-table-column prop="num" label="订单信息(物品/数量)">
                     <template slot-scope="scope">
                         <div class="line" v-for="good in scope.row.goods">
                             <p>{{good.name}}
-                                <span class="c-warn">{{good.num}}kg</span>
+                                <span class="c-warn">{{good.num}}{{good.price_type}}</span>
                             </p>
                         </div>
                     </template>
@@ -52,7 +52,7 @@
                         </el-popover>
                     </template>
                 </el-table-column>
-                <el-table-column label="操作">
+                <el-table-column label="操作" width="160">
                     <template slot-scope="scope">
                         <el-dropdown trigger="click" @command="changeStatus">
                             <span class="el-dropdown-link">

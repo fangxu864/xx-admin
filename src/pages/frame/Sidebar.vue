@@ -35,7 +35,7 @@
                         title: '产品发布'
                     },
                     {
-                        icon: 'el-icon-sold-out',
+                        icon: 'el-icon-goods',
                         index: '/salepro',
                         title: '出售中产品'
                     },
@@ -43,6 +43,11 @@
                         icon: 'el-icon-sold-out',
                         index: '/hubpro',
                         title: '仓库中产品'
+                    },
+                    {
+                        icon: 'el-icon-edit-outline',
+                        index: '/editnotice',
+                        title: '编辑公告'
                     }
                 ]
             }

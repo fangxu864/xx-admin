@@ -11,7 +11,10 @@
             <img class="row-img" :src="scope.row.images" alt="商品图">
           </template>
         </el-table-column>
-        <el-table-column prop="price" label="价格(每kg)">
+        <el-table-column prop="price" label="价格">
+          <template slot-scope="scope">
+            <span>{{scope.row.price}}/{{scope.row.price_type}}</span>
+          </template>
         </el-table-column>
         <el-table-column prop="type" label="产品类型">
         </el-table-column>

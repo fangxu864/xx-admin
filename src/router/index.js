@@ -7,6 +7,7 @@ import publish from '../pages/publish/index.vue';
 import proedit from '../pages/proedit/index.vue';
 import salepro from '../pages/salepro/index.vue';
 import hubpro from '../pages/hubpro/index.vue';
+import editnotice from '../pages/editnotice/index.vue';
 Vue.use(Router);
 export default new Router({
     routes: [{
@@ -36,6 +37,10 @@ export default new Router({
                 {
                     path: '/hubpro',
                     component: hubpro
+                },
+                {
+                    path: '/editnotice',
+                    component: editnotice
                 },
             ]
         },

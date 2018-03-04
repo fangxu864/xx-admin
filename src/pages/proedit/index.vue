@@ -24,7 +24,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="描述" prop="description">
-                    <el-input type="textarea" v-model="form.description" :autosize="{ minRows: 3, maxRows: 5}"></el-input>
+                    <el-input type="textarea" v-model="form.description" :autosize="{ minRows: 3, maxRows: 10}"></el-input>
                 </el-form-item>
                 <el-form-item label="商品图">
                     <div class="mini-img-wrap">
