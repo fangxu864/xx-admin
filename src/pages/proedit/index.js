@@ -256,6 +256,7 @@ export default {
                     console.log(res);
                     if (res.code == 200) {
                         res.data.list[0].price = Number(res.data.list[0].price);
+                        res.data.list[0].sec_price = Number(res.data.list[0].sec_price);
                         _this.form = res.data.list[0];
                         _this.imgSrcArr = [res.data.list[0]["images"]]
                     } else {

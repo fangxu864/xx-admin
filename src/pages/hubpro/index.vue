@@ -16,6 +16,14 @@
         <el-table-column prop="type" label="产品类型">
         </el-table-column>
         <el-table-column prop="description" label="描述" width="200px">
+          <template slot-scope="scope">
+            <el-popover trigger="hover" placement="top">
+              <p style="width:200px;">{{scope.row.description}}</p>
+              <div slot="reference" class="name-wrapper">
+                <div class="ellipsis--l3">{{scope.row.description}}</div>
+              </div>
+            </el-popover>
+          </template>
         </el-table-column>
         <el-table-column label="操作" width="300px">
           <template slot-scope="scope">
