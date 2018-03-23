@@ -7,12 +7,12 @@
 */
 
 require("./index.scss");
-require("./lib/cropper.scss");
+// require("./lib/cropper.scss");
 var cropTpl = require("./tpl/crop.xtpl");
 var chooseImgTpl = require("./tpl/chooseimg.xtpl");
 
 //请在html页面中自行引入该插件
-var Cropper = require("cropperjs");
+// var Cropper = require("cropperjs");
 var Dialog = require("pft-ui-component/Dialog");
 var Drag = require("pft-ui-component/Drag");
 var upBase64ImgTo7Niu = require("./upBase64-qiniu.js");

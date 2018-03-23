@@ -14,14 +14,17 @@
                 </div>
             </el-form>
         </div>
+        <div class="g-footer">
+            <p>fzseafood.cn All Rights Reserved. <a href="http://www.miibeian.gov.cn/" class="">闽ICP备 18005562号</a></p>
+        </div>
     </div>
 </template>
 
 <script>
-    import indexJS from './index.js';
-    export default indexJS;
+import indexJS from "./index.js";
+export default indexJS;
 </script>
 
 <style scoped lang="scss">
-    @import "./index.scss"; 
+@import "./index.scss";
 </style>

@@ -4,8 +4,15 @@
         <v-sidebar></v-sidebar>
         <div class="content">
             <!-- <transition name="el-fade-in" mode="out-in"> -->
+                
+            <div class="g-content">
                 <router-view></router-view>
+            </div>
+               
             <!-- </transition> -->
+            <div class="g-footer">
+                <p>fzseafood.cn All Rights Reserved. 闽ICP备 18005562号</p>
+            </div>
         </div>
     </div>
 </template>
